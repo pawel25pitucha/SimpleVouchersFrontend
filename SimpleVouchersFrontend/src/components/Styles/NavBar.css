@@ -1,0 +1,20 @@
+﻿body {
+  
+}
+
+.navbar-link{
+    color:snow;
+    text-decoration:none;
+}
+.navbar-link:hover {
+    color: lightgrey;
+    text-decoration: none;
+}
+.navbar-link-brand {
+    color: gray;
+    text-decoration: none;
+}
+ .navbar-link-brand:hover {
+   color: snow;
+   text-decoration: none;
+ }
