@@ -1,0 +1,58 @@
+import React, { useEffect, useState } from 'react'
+import './Styles/LoginPage.css';
+import { Link } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import LockIcon from '@material-ui/icons/Lock';
+import Button from '@material-ui/core/Button';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import logIN from '../actions/login';
+import { useDispatch } from 'react-redux';
+
+function LoginPage(){
+    const dispatch = useDispatch();
+    const[visibility,setVisbility]= useState(false);
+    const[isLogged, setIsLogged]=useState(false);
+    const[loginName, setLoginName]= useState('');
+    const[password, setPassword]= useState('');
+
+    const handleChangeLogin= (event) =>{
+        setLoginName(event.target.value);
+    }
+    const handleChangePassword= (event) =>{
+        setPassword(event.target.value);
+    }
+
+    const login =() => {
+        setIsLogged(true);
+  
+        setTimeout(function(){dispatch(logIN())},1000);
+    }
+ 
+  
+    return (
+        <div className="LoginPage">
+            <div className="Login-box">
+                <h2>Login</h2>
+                {
+                    (isLogged)? <LockOpenIcon className="LockedIcon" style={{ fontSize: 50 }} /> : <LockIcon className="LockedIcon" style={{ fontSize: 50 }} />
+                }
+                <div className="Login-box-element">
+                    <AccountCircle />
+                    <TextField id="input-with-icon-grid" label="Login"  onChange={event=>handleChangeLogin(event)} />
+                </div>
+              
+                <div className="Login-box-element">
+                    <VisibilityOffIcon className="visibilityButton" onClick={() => setVisbility(!visibility)}/>
+                    <TextField id="input-with-icon-grid" label="Password" type={visibility? 'text' : 'password'} value={password} onChange={event=>handleChangePassword(event)} />
+                </div>
+                <Button id="LoginButton" variant="contained" color="primary" onClick={login}>Login</Button>
+              
+            </div>      
+        </div>
+    )
+}
+
+export default LoginPage

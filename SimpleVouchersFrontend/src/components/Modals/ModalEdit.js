@@ -22,7 +22,7 @@ function ModalUse(props) {
                 </Modal.Header>
                 <Modal.Body>
                     
-                      <h3>Edycja</h3>
+                      <h3>Czy chcesz edytować voucher?</h3>
                     
                 </Modal.Body>
                 <Modal.Footer>

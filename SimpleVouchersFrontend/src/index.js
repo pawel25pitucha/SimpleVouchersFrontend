@@ -5,18 +5,23 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import App from './App';
 import Raport from './components/Raport';
 import Stats from './components/Stats';
+import {createStore} from 'redux';
+import loggedReducer from './reducers/isLogged';
+import {Provider} from 'react-redux';
 
+const store= createStore(loggedReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-    <BrowserRouter basename={baseUrl}>
-        <Route exact path="/" component={App} />
-        <Route path="/raport" component={Raport} />
-        <Route path="/statystyki" component={Stats} />
-
-  </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter basename={baseUrl}>
+            <Route exact path="/" component={App} />
+            <Route path="/raport" component={Raport} />
+            <Route path="/statystyki" component={Stats} />
+        </BrowserRouter>
+    </Provider>,
   rootElement);
 
 

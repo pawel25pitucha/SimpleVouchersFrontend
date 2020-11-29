@@ -22,7 +22,7 @@ function ModalInfo(props) {
                 </Modal.Header>
                 <Modal.Body>
                     
-                      <h3>Szczegóły</h3>
+                      <h3>Tutaj wyświetlane bedą szczegóły vouchera.</h3>
                     
                 </Modal.Body>
                 <Modal.Footer>

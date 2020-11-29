@@ -39,7 +39,6 @@ function MainTable({ vouchers }) {
                 { name: "Kamil", lastname: "Patecki", date: "11-11-2019", price: "1005zł", code: "slasjfdlsaj" },
                 { name: "Kamil", lastname: "Olszewski", date: "10-22-2019", price: "1050zł", code: "fgdhdfglsaj" }, 
                 { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-    
             ]
         );
     }, []);

@@ -1,19 +1,12 @@
-﻿body {
-    margin:0;
-}
-
+﻿
 Form{
     margin-bottom:10px;
     margin-left:10px;
 }
-
-
 .Table {
     height: 100%;
     
 }
-
-
 .col-btn > button{
     float:right;
     margin-right:14%;
@@ -23,7 +16,6 @@ Form{
 tr td{
     text-align: center;
 }
-
 thead {
     background-color: lightcyan;
     text-align:center;
@@ -33,7 +25,6 @@ tbody {
     max-height: 800px;
     background-color: snow;
 }
- 
 .td-actions-buttons{
     width:30%;
     text-align:center;
@@ -48,14 +39,12 @@ tbody {
 .uncorrectDate {
     background-color: lightcoral;
 }
-
 .my-custom-scrollbar {
     position: relative;
     height: 800px;
     width:100%;
     overflow: auto;
 }
-
 .table-wrapper-scroll-y {
     display: block;
 }

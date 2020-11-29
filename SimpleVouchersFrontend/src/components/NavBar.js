@@ -2,9 +2,12 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import "./Styles/NavBar.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import logIN from '../actions/login';
 
 
 function NavBar() {
+    const dispatch = useDispatch();
     return (
         <Navbar className="NavBar" collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand><Link to="/" className="navbar-link-brand">VoucherApp</Link></Navbar.Brand>
@@ -16,7 +19,7 @@ function NavBar() {
                     <Nav.Link><Link to="/statystyki" className="navbar-link">Statystyki</Link></Nav.Link>
                 </Nav>
                 <Nav>
-                    <Nav.Link href="">Logout</Nav.Link>
+                    <Nav.Link onClick={() => dispatch(logIN())}>Logout</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
