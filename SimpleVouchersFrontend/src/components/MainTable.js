@@ -6,42 +6,44 @@ import { useEffect } from 'react';
 import ModalUse from "./Modals/ModalUse";
 import ModalInfo from "./Modals/ModalInfo";
 import ModalEdit from "./Modals/ModalEdit";
-
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+const url="https://localhost:5001";
 
 function MainTable({ vouchers }) {
     const [modalUseShow, setModalUseShow] = React.useState(false);
     const [modalInfoShow, setModalInfoShow] = React.useState(false);
     const [modalEditShow, setModalEditShow] = React.useState(false);
+    const [searchValue, setSearchValue] = React.useState(false);
     const [data, setData] = useState([]);
 
 
     const checkDate = (date) => {
         var today = new Date();
         var voucherDate = new Date(date);
-     
+
         if (today <= voucherDate) return true;
         else return false;
     }
-
+   
+    const search =()=>{
+   
+    }
 
     useEffect(() => {
-        setData(
-            [
-                { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-                { name: "Kamil", lastname: "Patecki", date: "11-11-2019", price: "1005zł", code: "slasjfdlsaj" },
-                { name: "Kamil", lastname: "Olszewski", date: "10-22-2019", price: "1050zł", code: "fgdhdfglsaj" },
-                { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-                { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-                { name: "Kamil", lastname: "Patecki", date: "11-11-2019", price: "1005zł", code: "slasjfdlsaj" },
-                { name: "Kamil", lastname: "Olszewski", date: "10-22-2019", price: "1050zł", code: "fgdhdfglsaj" },
-                { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-                { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-                { name: "Kamil", lastname: "Patecki", date: "11-11-2019", price: "1005zł", code: "slasjfdlsaj" },
-                { name: "Kamil", lastname: "Olszewski", date: "10-22-2019", price: "1050zł", code: "fgdhdfglsaj" }, 
-                { name: "Paweł", lastname: "Pitucha", date: "09-10-2019", price: "1000zł", code: "slahjfdlsaj" },
-            ]
-        );
+        loadData();
     }, []);
+
+    const loadData=()=>{
+        axios.get(url+'/api/Vouchers')
+        .then(res => {
+            res.data.map(x=> {
+                console.log(x);
+                var voucher ={amount: x.amount, code:x.code, client:x.customer, endDate: x.expirationDate, id:x.id};
+                setData(data => [...data,voucher]);
+            })
+        });
+    }
      
     return (
         <div className="Table">
@@ -50,12 +52,12 @@ function MainTable({ vouchers }) {
                 <Row>
                     <Col>
                         <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
+                        <FormControl onChange={e => setSearchValue(e.target.value)} type="text" placeholder="Search" className="mr-sm-2" />
+                        <Button onClick={search} variant="outline-success">Search</Button>
                         </Form>
                     </Col>
                     <Col className="col-btn">
-                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="./Modal">Stwórz</button>
+                    <Link to="/create" id="linkToCreate"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="./Modal"> Stwórz</button></Link> 
                     </Col>
                 </Row>
                 <Row>
@@ -74,13 +76,13 @@ function MainTable({ vouchers }) {
                         </thead>
                         <tbody>
                                 {
-                                    data.map((voucher, i) => (
-                                        <tr key={voucher.code} >
+                                    data&&data.map((voucher, i) => (
+                                        <tr key={voucher.id} >
                                         <td className="td-lp">{i+1}</td>
-                                        <td><a>{voucher.name}</a></td>
-                                        <td><a>{voucher.lastname}</a></td>
-                                        <td className={(checkDate(voucher.date) ? 'correctDate' : 'uncorrectDate')}><a>{voucher.date}</a></td>
-                                        <td><a>{voucher.price}</a></td>
+                                        <td><a>{voucher.client.firstname}</a></td>
+                                        <td><a>{voucher.client.surname}</a></td>
+                                        <td className={(checkDate(voucher.endDate) ? 'correctDate' : 'uncorrectDate')}><a>{voucher.endDate}</a></td>
+                                        <td><a>{voucher.amount}zł</a></td>
                                         <td><a>{voucher.code}</a></td>
                                         <td className="td-actions-buttons">
                                                 <Button variant="success" onClick={() => setModalUseShow(true)} >Wykorzystaj</Button>

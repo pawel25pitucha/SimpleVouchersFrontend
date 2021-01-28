@@ -8,6 +8,10 @@ import Stats from './components/Stats';
 import {createStore} from 'redux';
 import loggedReducer from './reducers/isLogged';
 import {Provider} from 'react-redux';
+import CreateVoucher from './components/CreateVoucher';
+import Register from './components/Register';
+import LoginPage from './components/LoginPage';
+
 
 const store= createStore(loggedReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -20,6 +24,9 @@ ReactDOM.render(
             <Route exact path="/" component={App} />
             <Route path="/raport" component={Raport} />
             <Route path="/statystyki" component={Stats} />
+            <Route path="/create" component={CreateVoucher} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={Register} />
         </BrowserRouter>
     </Provider>,
   rootElement);

@@ -13,13 +13,14 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios'
 const url="https://localhost:5001";
 
-function LoginPage(){
+function Register(){
     const dispatch = useDispatch();
     const[visibility,setVisbility]= useState(false);
     const[isLogged, setIsLogged]=useState(false);
     const[loginName, setLoginName]= useState('');
     const[password, setPassword]= useState('');
     const[error,setError]= useState('');
+    const [email, setEmail] = useState('')
 
     const handleChangeLogin= (event) =>{
         setLoginName(event.target.value);
@@ -28,35 +29,34 @@ function LoginPage(){
         setPassword(event.target.value);
     }
 
-    const login =() => {
+    const register =() => {
         axios({
             method: 'POST',
-            url: `${url}/api/Auth/login`,
+            url: `${url}/api/Auth/register`,
             data: {
-                email: loginName,
+                username:loginName,
+                email: email,
                 password: password
             }
         }).then(res=>{
-            setIsLogged(true);
-            setTimeout(function(){dispatch(logIN())},1000);
+            setError('Sukces! Wróć do logowania!')
+            //window.location="/login";
         }).catch(error => {
             console.log(error);
             setError('Incorrect')
         })
-
-
-
-    
     }
  
   
     return (
         <div className="LoginPage">
             <div className="Login-box">
-                <h2>Login</h2>
-                {
-                    (isLogged)? <LockOpenIcon className="LockedIcon" style={{ fontSize: 50 }} /> : <LockIcon className="LockedIcon" style={{ fontSize: 50 }} />
-                }
+                <h2>Register</h2>
+                <div className="Login-box-element">
+                    <AccountCircle />
+                    <TextField id="input-with-icon-grid" label="Email" type='email' value={email} onChange={e => setEmail(e.target.value) } />
+                </div>
+              
                 <div className="Login-box-element">
                     <AccountCircle />
                     <TextField id="input-with-icon-grid" label="Login"  onChange={event=>handleChangeLogin(event)} />
@@ -66,14 +66,14 @@ function LoginPage(){
                     <VisibilityOffIcon className="visibilityButton" onClick={() => setVisbility(!visibility)}/>
                     <TextField id="input-with-icon-grid" label="Password" type={visibility? 'text' : 'password'} value={password} onChange={event=>handleChangePassword(event)} />
                 </div>
-                <Button id="LoginButton" variant="contained" color="primary" onClick={login}>Login</Button>
-                <a><Link to="/register">Nie masz konta? Zarejestruj się!</Link></a>
+                <Button id="LoginButton" variant="contained" color="primary" onClick={register}>Register</Button>
                 {
                     error? <a>{error}</a> : ' '
                 }
+              
             </div>      
         </div>
     )
 }
 
-export default LoginPage
+export default Register

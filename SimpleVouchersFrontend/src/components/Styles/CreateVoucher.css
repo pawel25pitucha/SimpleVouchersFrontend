@@ -1,0 +1,122 @@
+
+.CreateVoucher{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+ 
+
+}
+.Voucher{
+    padding: 15px;
+}
+.CreateVoucher>a{
+   color:black;
+}
+
+.Voucher h1{
+    color: white;
+    text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+    font-weight: bold;
+    font-size: 50px;
+}
+.shadow{
+    border-radius: 15px;
+    width: 40%;
+    height: 800px;
+    margin: auto;
+    margin-top: 50px;
+    display:grid;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gainsboro;
+    text-align: center;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.shadow:hover{
+    box-shadow:  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 20px rgba(0, 0, 0, 0.06),
+    0 22.3px 20.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 200px 80px rgba(0, 0, 0, 0.12);
+}
+
+.mb-3{
+    margin-top: 50px;
+}
+.Autocomplete{
+    width: 200px;
+    text-align: center;
+    margin-left: 115px;
+    margin-top: 40px;
+}
+
+.priceInput{
+    margin: auto;
+    margin-top: 10px;
+    width: 50%;
+    margin-bottom: 50px;
+}
+.Code{
+    margin-top: auto;
+    color: white;
+    text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+    font-weight: bold;
+    font-size: 40px;
+}
+.CodeGreen{
+    margin-top: auto;
+    color: lightgreen;
+    text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.spinner{
+    margin: auto;
+    margin-top: 20px;
+}
+.VoucherCode{
+    margin: auto;
+    margin-top: 50px;
+    width: 300px;
+}
+
+
+.VoucherCode>button{
+    height: 50px;
+    border-radius: 10px;
+    background-color: snow;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+
+    border: white;
+}
+.VoucherCode>button:hover{
+    border: darkblue solid 1px;
+}
+.VoucherCode>button:hover::after{
+    content: "";
+    display: block;
+    margin: 0 auto; 
+    width: 0%; 
+    border-bottom: 3px solid darkblue; 
+    animation: coolhover 2s;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes coolhover {
+    0%{
+      width: 5%;
+    }
+    25%{
+      width: 100%;
+    }
+  }
