@@ -1,12 +1,21 @@
 ﻿import React from 'react';
 import { Modal,Button} from 'react-bootstrap';
-
+import axios from 'axios';
 import "../Styles/Home.css";
-
+const url="https://localhost:5001";
 
 
 function ModalUse(props) {
 
+    const useVoucher=()=>{
+        axios({
+            method: 'DELETE',
+            url: `${url}/api/Vouchers/${props.voucher.id}`,
+        }).then(res => {
+            console.log(res);
+            props.onHide();
+        })
+    }
     return (
         <div>
             <Modal
@@ -26,7 +35,7 @@ function ModalUse(props) {
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onHide}>Wykorzystaj</Button>
+                    <Button onClick={useVoucher}>Wykorzystaj</Button>
                     <Button onClick={props.onHide}>Anuluj</Button>
                 </Modal.Footer>
             </Modal>

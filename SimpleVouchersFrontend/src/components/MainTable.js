@@ -10,12 +10,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 const url="https://localhost:5001";
 
-function MainTable({ vouchers }) {
+function MainTable() {
     const [modalUseShow, setModalUseShow] = React.useState(false);
     const [modalInfoShow, setModalInfoShow] = React.useState(false);
     const [modalEditShow, setModalEditShow] = React.useState(false);
     const [searchValue, setSearchValue] = React.useState(false);
     const [data, setData] = useState([]);
+    const [clickedVoucher,setClickedVoucher]= React.useState(null);
+    const [modalType,setModalType] = React.useState('');
 
 
     const checkDate = (date) => {
@@ -29,7 +31,11 @@ function MainTable({ vouchers }) {
     const search =()=>{
    
     }
-
+    const deletedVoucher=()=>{
+        setData([]);
+        setModalUseShow(false);
+        loadData();
+    }
     useEffect(() => {
         loadData();
     }, []);
@@ -38,13 +44,24 @@ function MainTable({ vouchers }) {
         axios.get(url+'/api/Vouchers')
         .then(res => {
             res.data.map(x=> {
-                console.log(x);
                 var voucher ={amount: x.amount, code:x.code, client:x.customer, endDate: x.expirationDate, id:x.id};
                 setData(data => [...data,voucher]);
             })
         });
     }
-     
+
+    const activateInfo=(voucher)=>{
+        setModalType('info');
+        setClickedVoucher(voucher);  
+    }
+    const activateUse=(voucher)=>{
+        setModalType('use');
+        setClickedVoucher(voucher);  
+    }
+    useEffect(() => {
+        if(modalType==='info') setModalInfoShow(true);
+        if(modalType==='use') setModalUseShow(true);
+    }, [clickedVoucher]);
     return (
         <div className="Table">
             
@@ -85,11 +102,11 @@ function MainTable({ vouchers }) {
                                         <td><a>{voucher.amount}zł</a></td>
                                         <td><a>{voucher.code}</a></td>
                                         <td className="td-actions-buttons">
-                                                <Button variant="success" onClick={() => setModalUseShow(true)} >Wykorzystaj</Button>
+                                                <Button variant="success" onClick={() => activateUse(voucher)} >Wykorzystaj</Button>
                                             {' '}
                                                 <Button variant="info" onClick={() => setModalEditShow(true)} >Edytuj</Button>
                                             {' '}
-                                                <Button variant="secondary" onClick={() => setModalInfoShow(true)}>Szczegóły</Button>
+                                                <Button variant="secondary" onClick={()=>activateInfo(voucher)}>Szczegóły</Button>
                                             {' '}
                                         </td>
                                     </tr>
@@ -103,10 +120,12 @@ function MainTable({ vouchers }) {
             <>
                 <ModalUse
                     show={modalUseShow}
-                    onHide={() => setModalUseShow(false)}
+                    voucher={clickedVoucher}
+                    onHide={deletedVoucher}
                 />
                 <ModalInfo
                     show={modalInfoShow}
+                    voucher={clickedVoucher}
                     onHide={() => setModalInfoShow(false)}
                 />
                 <ModalEdit
