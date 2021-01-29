@@ -25,6 +25,7 @@ function CreateVoucher() {
     const [emailResult, setEmailResult] = useState('')
 
     useEffect(() => {
+        setClients([]);
         loadData();
     }, [])
 

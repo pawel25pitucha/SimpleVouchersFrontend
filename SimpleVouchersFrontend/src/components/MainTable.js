@@ -107,7 +107,7 @@ function MainTable(props) {
                         </Form>
                     </Col>
                     <Col className="col-btn">
-                        {props.user&& (props.user.role === 'Admin' || props.user.role==='Employee')?   <Link to="/create" id="linkToCreate"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="./Modal"> Stwórz</button></Link>: '' }
+                        {(window.Role=== 'Admin' || window.Role==='Employee')?   <Link to="/create" id="linkToCreate"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="./Modal"> Stwórz</button></Link>: '' }
                   
                     </Col>
                 </Row>
@@ -122,7 +122,8 @@ function MainTable(props) {
                                 <th>Data-ważności</th>
                                 <th>Kwota</th>
                                 <th>Kod</th>
-                                <th>Akcje</th>
+                                {(window.Role === 'Admin' || window.Role==='Employee') ?  <th>Akcje</th> : ''}
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -135,7 +136,7 @@ function MainTable(props) {
                                         <td className={(checkDate(voucher.endDate) ? 'correctDate' : 'uncorrectDate')}><a>{voucher.endDate}</a></td>
                                         <td><a>{voucher.amount}zł</a></td>
                                         <td><a>{voucher.code}</a></td>
-                                        { props.user&& (props.user.role === 'Admin' || props.user.role==='Employee') ?
+                                        {(window.Role === 'Admin' || window.Role==='Employee') ?
                                         <td className="td-actions-buttons">
                                                 <Button variant="success" onClick={() => activateUse(voucher)} >Wykorzystaj</Button>
                                             {' '}
