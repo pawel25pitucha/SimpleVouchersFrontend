@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 const url="https://localhost:5001";
 
-function MainTable() {
+function MainTable(props) {
     const [modalUseShow, setModalUseShow] = React.useState(false);
     const [modalInfoShow, setModalInfoShow] = React.useState(false);
     const [modalEditShow, setModalEditShow] = React.useState(false);
@@ -28,13 +28,41 @@ function MainTable() {
         else return false;
     }
    
-    const search =()=>{
-   
+    const search =(e)=>{
+        console.log(e.target.value);
+        if(e.target.value){
+            var filtered=[];
+            data.map(voucher => {
+                if(voucher.client.firstname.toLowerCase().match(e.target.value.toLowerCase()+".*")
+                || voucher.client.surname.toLowerCase().match(e.target.value.toLowerCase()+".*") 
+                || voucher.code.toLowerCase().match(e.target.value.toLowerCase()+".*")){
+                    filtered=[...filtered,voucher];
+                }
+            })
+            setData(filtered);
+        }else{
+            setData([]);
+            loadData();
+        }
     }
     const deletedVoucher=()=>{
         setData([]);
+        setModalType('');
         setModalUseShow(false);
+        setClickedVoucher(null);
         loadData();
+    }
+    const editedVoucher=() => {
+        setData([]);
+        setModalType('');
+        setModalEditShow(false);
+        setClickedVoucher(null);
+        loadData();
+    }
+    const closedInfoVoucher=() => {
+        setModalType('');
+        setModalInfoShow(false);
+        setClickedVoucher(null);
     }
     useEffect(() => {
         loadData();
@@ -58,23 +86,28 @@ function MainTable() {
         setModalType('use');
         setClickedVoucher(voucher);  
     }
+    const activateEdit=(voucher)=>{
+        setModalType('edit');
+        setClickedVoucher(voucher);  
+    }
     useEffect(() => {
         if(modalType==='info') setModalInfoShow(true);
         if(modalType==='use') setModalUseShow(true);
+        if(modalType==='edit') setModalEditShow(true);
     }, [clickedVoucher]);
     return (
         <div className="Table">
-            
+
             <Container fluid className="Container" >
                 <Row>
                     <Col>
                         <Form inline>
-                        <FormControl onChange={e => setSearchValue(e.target.value)} type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button onClick={search} variant="outline-success">Search</Button>
+                        <FormControl onChange={e => search(e)} type="text" placeholder="Search" className="mr-sm-2" />
                         </Form>
                     </Col>
                     <Col className="col-btn">
-                    <Link to="/create" id="linkToCreate"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="./Modal"> Stwórz</button></Link> 
+                        {props.user&& (props.user.role === 'Admin' || props.user.role==='Employee')?   <Link to="/create" id="linkToCreate"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="./Modal"> Stwórz</button></Link>: '' }
+                  
                     </Col>
                 </Row>
                 <Row>
@@ -101,14 +134,17 @@ function MainTable() {
                                         <td className={(checkDate(voucher.endDate) ? 'correctDate' : 'uncorrectDate')}><a>{voucher.endDate}</a></td>
                                         <td><a>{voucher.amount}zł</a></td>
                                         <td><a>{voucher.code}</a></td>
+                                        { props.user&& (props.user.role === 'Admin' || props.user.role==='Employee') ?
                                         <td className="td-actions-buttons">
                                                 <Button variant="success" onClick={() => activateUse(voucher)} >Wykorzystaj</Button>
                                             {' '}
-                                                <Button variant="info" onClick={() => setModalEditShow(true)} >Edytuj</Button>
+                                                <Button variant="info" onClick={() => activateEdit(voucher)} >Edytuj</Button>
                                             {' '}
                                                 <Button variant="secondary" onClick={()=>activateInfo(voucher)}>Szczegóły</Button>
                                             {' '}
                                         </td>
+                                        : ''
+                                        }
                                     </tr>
                                 ))
                             }               
@@ -126,11 +162,12 @@ function MainTable() {
                 <ModalInfo
                     show={modalInfoShow}
                     voucher={clickedVoucher}
-                    onHide={() => setModalInfoShow(false)}
+                    onHide={closedInfoVoucher}
                 />
                 <ModalEdit
                     show={modalEditShow}
-                    onHide={() => setModalEditShow(false)}
+                    voucher={clickedVoucher}
+                    onHide={editedVoucher}
                 />
             </>
         </div> 

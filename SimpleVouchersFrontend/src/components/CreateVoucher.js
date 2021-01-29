@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import EmailIcon from '@material-ui/icons/Email';
 import axios from 'axios'
 const url="https://localhost:5001";
 
@@ -18,8 +19,10 @@ function CreateVoucher() {
     const [date, setDate] = useState(new Date());
     const [price, setPrice] = useState(0);
     const [loading, setLoading] = useState(false);
-    
+    const[ createdVoucherId,setCreatedVoucherId]=useState('');
     const [clients,setClients] =useState([]);
+    const [email, setEmail] = useState('');
+    const [emailResult, setEmailResult] = useState('')
 
     useEffect(() => {
         loadData();
@@ -67,7 +70,8 @@ function CreateVoucher() {
                 }
             }).then(res => {
                 setLoading(false);
-                setCode(res.data.code)
+                setCode(res.data.code);
+                setCreatedVoucherId(res.data.id);
             })
         }
         else{
@@ -89,14 +93,12 @@ function CreateVoucher() {
                     }
                 }).then(res => {
                     setLoading(false);
-                    setCode(res.data.code)
+                    setCode(res.data.code);
+                    setCreatedVoucherId(res.data.id);
                 })
             })
             
-        }
-            
-            
-        
+        }    
     }
     const handleChange=(e,value)=>{
         setClient(value);
@@ -106,6 +108,21 @@ function CreateVoucher() {
     }
     const handleSurnameChange= (e) => {
         setnewClientSurname(e.target.value);
+    }
+    const sendEmail=()=>{
+        console.log(createdVoucherId);
+        axios({
+            method: 'POST',
+            url: `${url}/api/Vouchers/email`,
+            data:{
+                id: createdVoucherId,
+                emailToSend:email
+            }
+             
+        }).then(res => {
+            console.log(res);
+            setEmailResult('Email został pomyślnie wysłany :)')
+        })
     }
 
     return (
@@ -154,6 +171,16 @@ function CreateVoucher() {
                     <div className="VoucherCode">
                         <button onClick={saveVoucher}>Stwórz Voucher</button>
                     </div>
+                    {
+                    code !=='VOUCHER CODE'?
+                    <div className="VoucherCode">
+                        <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Podaj email"></input>
+                        <button onClick={sendEmail}>Wyślij na email</button>
+                        <EmailIcon style={{ margin: 'auto'}} fontSize="large" classname="EmailIcon"/>
+                        <a style={{color:'green'}}>{emailResult&&emailResult}</a>
+                    </div>
+                    : ''
+                    }
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ import axios from 'axios';
 import "../Styles/Home.css";
 const url="https://localhost:5001";
 
-
 function ModalUse(props) {
 
     const useVoucher=()=>{

@@ -3,19 +3,20 @@ import  Home  from './components/Home';
 import LoginPage from './components/LoginPage';
 import './custom.css'
 import {useSelector} from 'react-redux';
+import { useCookies } from 'react-cookie';
 
 
 export default function App() {
   const isLogged = useSelector(state=> state);
 
-  useEffect(() => {
-    console.log(isLogged);
-  }, [isLogged])
+
+
+
 
   return (
     <div>
       {
-        (isLogged) ? <Home /> :  <LoginPage/>
+       (isLogged) ? <Home /> :  <LoginPage/>
       }
     </div>
   

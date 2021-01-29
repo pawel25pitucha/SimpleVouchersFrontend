@@ -9,6 +9,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import logIN from '../actions/login';
+import PasswordStrengthBar from 'react-password-strength-bar';
 import { useDispatch } from 'react-redux';
 import axios from 'axios'
 const url="https://localhost:5001";
@@ -39,7 +40,11 @@ function Register(){
                 password: password
             }
         }).then(res=>{
-            setError('Sukces! Wróć do logowania!')
+            console.log(res);
+            if(res.data.errors[0]){
+                setError(res.data.errors[0].description);
+            }
+            else setError('Sukces! Wróć do logowania!');
             //window.location="/login";
         }).catch(error => {
             console.log(error);
@@ -65,12 +70,13 @@ function Register(){
                 <div className="Login-box-element">
                     <VisibilityOffIcon className="visibilityButton" onClick={() => setVisbility(!visibility)}/>
                     <TextField id="input-with-icon-grid" label="Password" type={visibility? 'text' : 'password'} value={password} onChange={event=>handleChangePassword(event)} />
+                    <PasswordStrengthBar password={password} />
                 </div>
                 <Button id="LoginButton" variant="contained" color="primary" onClick={register}>Register</Button>
                 {
                     error? <a>{error}</a> : ' '
                 }
-              
+                 <Link to="/login"> <Button variant="primary">Wróć do logowania</Button></Link>  
             </div>      
         </div>
     )

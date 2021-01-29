@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Modal,Button} from 'react-bootstrap';
-
+import './ModalInfo.css';
 import "../Styles/Home.css";
 
 
@@ -22,11 +22,13 @@ function ModalInfo(props) {
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h2>Imię:{props.voucher&&props.voucher.client.firstname}</h2>
-                    <h2>Nazwisko:{props.voucher&&props.voucher.client.surname}</h2>
-                    <h2>Kwota:{props.voucher&&props.voucher.amount}zł</h2>
-                    <h2>Data ważności:{props.voucher&&props.voucher.endDate}</h2>
-                    <h1>Kod:{props.voucher&&props.voucher.code}</h1>                      
+                    <div className="info-div">
+                        <h2>Imię:</h2><h2 id="value">{props.voucher&&props.voucher.client.firstname}</h2>
+                        <h2>Nazwisko:</h2><h2 id="value">{props.voucher&&props.voucher.client.surname}</h2>
+                        <h2>Kwota:</h2><h2 id="value">{props.voucher&&props.voucher.amount}zł</h2>
+                        <h2>Data ważności:</h2><h2 id="value">{props.voucher&&props.voucher.endDate}</h2>
+                        <h2>Kod:</h2><h1 id="code">{props.voucher&&props.voucher.code}</h1>  
+                    </div>                     
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Zamknij</Button>

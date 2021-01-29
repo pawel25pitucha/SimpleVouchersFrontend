@@ -15,8 +15,9 @@ function NavBar() {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link><Link to="/" className="navbar-link">Voucher</Link></Nav.Link>
-                    <Nav.Link><Link to="/raport" className="navbar-link">Raport</Link></Nav.Link>
                     <Nav.Link><Link to="/statystyki" className="navbar-link">Statystyki</Link></Nav.Link>
+                    <Nav.Link><Link to="/users" className="navbar-link">Użytkownicy</Link></Nav.Link>
+                   
                 </Nav>
                 <Nav>
                     <Nav.Link onClick={() => dispatch(logIN())}>Logout</Nav.Link>

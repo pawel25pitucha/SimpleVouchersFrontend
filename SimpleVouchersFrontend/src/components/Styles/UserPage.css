@@ -1,0 +1,47 @@
+.UserPage{
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+}
+.user{
+    min-width: 500px;
+    width: fit-content;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    border:  2px solid lightseagreen;
+    margin-top: 20px;
+}
+.search{
+    width:30%;
+    margin: auto;
+}
+.user:hover{
+    min-width: 500px;
+    width: fit-content;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    border:  2px dotted lightseagreen;
+    margin-top: 20px;
+    cursor: pointer;
+}
+#color{
+color: lightseagreen;
+}
+
+.user>button{
+    margin-top: 10px;
+    color:snow;
+    background-color: lightseagreen;
+    border: 1px solid snow;
+    border-radius: 5px;
+}
+.user>button:hover{
+    margin-top: 10px;
+    color:lightseagreen;
+    background-color: snow;
+    border: 1px solid lightseagreen;
+    border-radius: 5px;
+}
+

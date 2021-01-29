@@ -85,8 +85,9 @@
     margin: auto;
     margin-top: 50px;
     width: 300px;
+    display: grid;
+    text-align: center;
 }
-
 
 .VoucherCode>button{
     height: 50px;
@@ -95,8 +96,9 @@
     color: black;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
-
     border: white;
+    width: 50%;
+    margin: auto;
 }
 .VoucherCode>button:hover{
     border: darkblue solid 1px;

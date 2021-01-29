@@ -10,10 +10,12 @@ import Button from '@material-ui/core/Button';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import logIN from '../actions/login';
 import { useDispatch } from 'react-redux';
+
 import axios from 'axios'
+axios.defaults.withCredentials=true;
 const url="https://localhost:5001";
 
-function LoginPage(){
+function LoginPage(props){
     const dispatch = useDispatch();
     const[visibility,setVisbility]= useState(false);
     const[isLogged, setIsLogged]=useState(false);
@@ -37,6 +39,7 @@ function LoginPage(){
                 password: password
             }
         }).then(res=>{
+            props.userUpdate(res.data.loginAccount);
             setIsLogged(true);
             setTimeout(function(){dispatch(logIN())},1000);
         }).catch(error => {
@@ -65,6 +68,7 @@ function LoginPage(){
                 <div className="Login-box-element">
                     <VisibilityOffIcon className="visibilityButton" onClick={() => setVisbility(!visibility)}/>
                     <TextField id="input-with-icon-grid" label="Password" type={visibility? 'text' : 'password'} value={password} onChange={event=>handleChangePassword(event)} />
+                    
                 </div>
                 <Button id="LoginButton" variant="contained" color="primary" onClick={login}>Login</Button>
                 <a><Link to="/register">Nie masz konta? Zarejestruj się!</Link></a>
