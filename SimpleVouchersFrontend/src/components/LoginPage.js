@@ -39,17 +39,15 @@ function LoginPage(){
                 password: password
             }
         }).then(res=>{
-            window.Role=res.data.loginAccount.role;
             setIsLogged(true);
-            setTimeout(function(){dispatch(logIN())},1000);
+            window.Role=res.data.loginAccount.role;
+            dispatch(logIN());
+            //setTimeout(function(props){},1000);
+            //setTimeout(function(){dispatch(logIN())},1000);
         }).catch(error => {
             console.log(error);
             setError('Incorrect')
-        })
-
-
-
-    
+        })    
     }
  
   

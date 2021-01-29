@@ -12,6 +12,7 @@ import logIN from '../actions/login';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { useDispatch } from 'react-redux';
 import axios from 'axios'
+axios.defaults.withCredentials=true;
 const url="https://localhost:5001";
 
 function Register(){
@@ -45,7 +46,6 @@ function Register(){
                 setError(res.data.errors[0].description);
             }
             else setError('Sukces! Wróć do logowania!');
-            //window.location="/login";
         }).catch(error => {
             console.log(error);
             setError('Incorrect')
@@ -76,7 +76,7 @@ function Register(){
                 {
                     error? <a>{error}</a> : ' '
                 }
-                 <Link to="/login"> <Button variant="primary">Wróć do logowania</Button></Link>  
+                 <Link to="/"> <Button variant="primary">Wróć do logowania</Button></Link>  
             </div>      
         </div>
     )

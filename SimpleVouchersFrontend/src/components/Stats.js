@@ -113,7 +113,7 @@ const options = {
     return (
         <div className="Stats">
             <NavBar />
-            <h3>Ilośc voucherów utworzonych w danym miesiącu </h3>
+            <h3>Ilość voucherów utworzonych w danym miesiącu </h3>
             <div className="chart">
                  <Bar data={data} options={options}/>
             </div>
