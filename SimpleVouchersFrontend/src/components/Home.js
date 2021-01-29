@@ -5,13 +5,13 @@ import "./Styles/Home.css";
 import axios from 'axios';
 
 
-function Home(props) {
+function Home() {
 
     return (
         <div>
-            <NavBar user={props.user} />
+            <NavBar/>
             <div className="mainTable-container">
-                <MainTable user={props.user}/>
+                <MainTable />
              </div>
         </div>
     );

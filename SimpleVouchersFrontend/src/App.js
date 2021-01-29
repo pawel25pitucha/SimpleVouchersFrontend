@@ -9,10 +9,6 @@ import { useCookies } from 'react-cookie';
 export default function App() {
   const isLogged = useSelector(state=> state);
 
-
-
-
-
   return (
     <div>
       {

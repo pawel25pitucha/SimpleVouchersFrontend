@@ -15,7 +15,7 @@ import axios from 'axios'
 axios.defaults.withCredentials=true;
 const url="https://localhost:5001";
 
-function LoginPage(props){
+function LoginPage(){
     const dispatch = useDispatch();
     const[visibility,setVisbility]= useState(false);
     const[isLogged, setIsLogged]=useState(false);
@@ -39,7 +39,7 @@ function LoginPage(props){
                 password: password
             }
         }).then(res=>{
-            props.userUpdate(res.data.loginAccount);
+            window.Role=res.data.loginAccount.role;
             setIsLogged(true);
             setTimeout(function(){dispatch(logIN())},1000);
         }).catch(error => {

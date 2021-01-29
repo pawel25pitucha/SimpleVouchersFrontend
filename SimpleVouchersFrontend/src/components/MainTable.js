@@ -65,6 +65,7 @@ function MainTable(props) {
         setClickedVoucher(null);
     }
     useEffect(() => {
+        console.log(window.Role);
         loadData();
     }, []);
 
